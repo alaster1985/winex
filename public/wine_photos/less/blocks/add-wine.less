@@ -1,0 +1,158 @@
+.add-wine__title{
+	padding: 10px 30px;
+	text-transform: uppercase;
+	position:relative;
+	&::before{
+	    position: absolute;
+	    content: "";
+	    width: 20px;
+	    height: 2px;
+	    left: 0;
+	    top: 50%;
+	    background-color: #761342;
+	}
+}
+
+.add-wine-panel-wrapper{
+	background-color: #2c2c2c;
+	padding: 30px;
+}
+
+
+.add-wine__input{
+	outline:none;
+	color: #6f6f6f;
+	padding: 5px 12px;
+	background-color: transparent;
+	border-radius: 25px;
+	font-size: 11px;
+	border: 1px solid #808080;
+	&:focus,
+	&:hover{
+   	 	border: 1px solid #e2e1e1;
+    	color: #e2e1e1;
+	}
+	&:focus::placeholder,
+	&:hover::placeholder{
+		color: #e2e1e1;
+	}
+}
+
+.add-wine__table{
+	text-align: center;
+	width: 800px;
+}
+.add-wine__show-panel{
+	width:100%;
+	margin-bottom: 50px;
+}
+.add-wine__table .add-wine__table-title-row{
+	background-color: #3f3f3f;
+	padding: 10px 0;
+	width: 90%;
+}
+
+.add-wine__table tbody td:nth-child(9) {
+	text-align: center;
+}
+
+// .add-wine__table {
+// 	tr:hover{
+// 		opacity: 0.7;
+// 	}
+// }
+
+
+.add-wine__table thead th{
+	width: 90px;
+	&:nth-child(2){
+		width: 105px;
+	}
+	&:nth-child(9){
+		width: 40px;
+	}
+}
+
+.add-wine__input{
+	width: 90px;
+}
+
+.add-wine__table tbody tr{
+	&:hover,
+	&:focus{
+		color: #e2e1e1;
+		background-color: #1b1b18;
+	}
+}
+
+
+.add-wine__table tbody td:nth-child(9) span{
+	background-color: #761342;
+	border-radius: 50%;
+	color: #fff;
+	width: 30px;
+	height: 30px;
+	line-height: 30px;
+	display: block;
+	margin: 0 auto;
+}
+
+
+
+.add-wine__table td{
+	position: relative;
+	padding: 10px 0;
+}
+.add-wine__table  th{
+	text-align: center;
+}
+
+.add-wine__btn{
+	font-size: 10px;
+	position:relative;
+	padding-left: 5px;
+}
+
+.add-wine__btn .fa-chevron-up{
+	position: absolute;
+	top: -2px;
+	color: #761342;
+}
+
+.add-wine__btn .fa-chevron-down{
+	position: absolute;
+	bottom: 0;
+	color: #761342;
+}
+
+
+.add-wine__table-title-row th{
+	text-align: center;
+	position:relative;
+	padding: 10px 0;
+}
+
+
+
+@media(max-width:1170px){
+	.add-wine__show-panel{
+		overflow-x: auto;
+  		white-space: nowrap;
+	}
+
+}
+
+
+@media(max-width:772px){
+	.filters-panel-wrapper{
+		padding: 20px 10px;
+	}
+	
+	.filters__input{
+		font-size: 11px;
+		padding: 2px 5px;
+	}
+}
+
+
+

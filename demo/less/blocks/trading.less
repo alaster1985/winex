@@ -1,0 +1,120 @@
+.trading__title{
+	padding: 10px 30px;
+	position:relative;
+	text-transform: uppercase;
+	&::before{
+	    position: absolute;
+	    content: "";
+	    width: 20px;
+	    height: 2px;
+	    left: 0;
+	    top: 50%;
+	    background-color: #808080;
+	}
+}
+
+.trading__show-panel{
+	padding: 50px;
+	background-color: #2c2c2c;
+	display: flex;
+	justify-content: space-between;
+	flex-wrap: wrap;
+}
+
+
+.trading__item{
+	position: relative;
+	width: 47.5%;
+	color: #fff;
+}
+
+.trading__info-wrapper{
+	width: 65%;
+	float: left;
+	margin-left: 10px;
+}
+
+.trading__item-title{
+	font-size: 15px;
+	text-transform: uppercase;
+	margin-bottom: 20px;
+}
+
+.trading__item-info{
+	font-size: 13px;
+	display: block;
+	margin-bottom: 20px;
+}
+
+
+.trading__item-img-wine{
+	position: relative;
+	height: auto;
+	width: 30%;
+	float: left;
+}
+
+.trading__item-img-gr{
+	position: absolute;
+	right:0;
+	top: 10%;
+	height: auto;
+	width: 25%;
+}
+
+
+@media (max-width: 998px ) {
+
+	.trading__item{
+		width:100%;
+		margin-bottom: 30px;
+	}
+
+	.trading__item-title{
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+
+	.trading__item-info{
+		font-size: 13px;
+		margin-bottom: 10px;
+	}
+	
+	.trading__item-img-gr {
+		bottom: 0;
+	    width: 25%;
+	}
+
+}
+
+@media (max-width: 778px ) {
+	.trading__info-wrapper {
+		padding-top: 5%;
+	}
+}
+
+
+@media (max-width: 576px ) {
+	.trading__show-panel{
+		padding: 20px 10px;
+	}
+
+	.trading__info-wrapper {
+		padding-top: 0;
+	}
+
+	.trading__item{
+		width: 100%;
+		margin: 20px;
+	}
+
+	.trading__item-title{
+		font-size: 12px;
+	}
+	.trading__item-info{
+		font-size: 11px;
+		margin-bottom: 10px;
+	}
+}
+
+

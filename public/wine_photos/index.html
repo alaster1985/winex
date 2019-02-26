@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="description" content="">
+    <meta name="keywords" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wine</title> 
+    <link rel="stylesheet" href="css/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/style.css">
+<body>
+    <main class="main_page">
+        <section class="container main-content ">
+            <div class="col-sm-3 site-nav-wrapper clearfix">
+                <div class="site-nav">
+                    <div class="site-nav__img-wrapper">
+                        <a class="site-nav__img-link" href="#"><img class="site-nav__img" src="images/main_logo.png" alt="Logo"></a>
+                    </div>
+                    <div>
+                        <ul class="site-nav__list">
+                            <li class="site-nav_item">
+                                <a class="site-nav-link site-nav-link--current">Wine Market</a>
+                            </li>
+                            <li class="site-nav_item">
+                                <a class="site-nav-link" href="cave.html">My Cave</a>
+                            </li>
+                            <li class="site-nav_item">
+                                <a class="site-nav-link" href="">Trade History</a>
+                            </li>
+                            <li class="site-nav_item">
+                                <a class="site-nav-link" href="">Withdraw</a>
+                            </li>
+                           <li class="site-nav_item">
+                                <a class="site-nav-link" href="">Insert</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-sm-9 content-wrapper">
+                <div class="user-nav clearfix">
+                    <div class="user-nav__funds col-sm-8">
+                        <span class="user-nav__funds-title">Funds</span>
+                        <span class="user-nav__funds-amound user-nav__funds-amound-cwex">23000.55</span>
+                        <span class="user-nav__funds-amound user-nav__funds-amound-btc">15.5</span>
+                        <span class="user-nav__funds-amound user-nav__funds-amound-еos">1700.90</span>
+                        <span class="user-nav__funds-amound user-nav__funds-amound-eth">250.70</span>
+                    </div>
+                    <div class="user-nav__menu-wrapper col-sm-4 clearfix">
+                        <a class="user-nav__link user-nav__link-userName">Mickey Mouse</a>
+                        <a class="user-nav__link user-nav__logout" href="#"><i class="fa fa-user user-nav__logout-icon" aria-hidden="true"></i>Logout</a>
+                        <div class="user-nav__menu-btn"><i class="fa fa-cog"></i></div>
+                    </div>
+                </div>
+                <div class="sortable list">
+                        <div>
+                            <h2 class="categories__title">Shown categories<span class="categories__show-btn fa fa-chevron-up show-btn"></span></h2>
+                            <ul class="categories__list show-panel">
+                                <li class="categories__item">
+                                    <label class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-code" id="categories-code" checked>
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Code</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-wine" id="categories-wine" checked disabled>
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Wine</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-year" id="categories-year" checked disabled>
+                                        <span class="categories__checkbox-indicator"></span>
+                                   Year</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-country" id="categories-country" checked>
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Country</label>
+                                </li>
+                                 <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-gainLT" id="categories-gainLT" checked>
+                                        <span class="categories__checkbox-indicator"></span>
+                                   Gain(since last trade)%</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-gainSI" id="categories-gainSI" >
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Gain(since intro)%</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-gainYTD" id="categories-gainYTD">
+                                        <span class="categories__checkbox-indicator"></span>
+                                   Gain(year to date)%</label>
+                                </li>
+                               <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-offerPUSB" id="categories-offerPUSB" checked disabled>
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Offer Price(USD)</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-format" id="categories-format">
+                                        <span class="categories__checkbox-indicator"></span>
+                                   Format</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-dateInto" id="categories-dateInto">
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Date Introduced</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-auth" id="categories-auth">
+                                        <span class="categories__checkbox-indicator"></span>
+                                   Authenticator</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-lastTD" id="categories-lastTD">
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Last Traded Date</label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-tradedPrice" id="categories-tradedPrice" checked>
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Last Traded Price </label>
+                                </li>
+                                <li class="categories__item">
+                                    <label  class="categories__item-label">
+                                        <input class="visually-hidden categories__input" type="checkbox" name="categories-highestBP" id="categories-highestBP">
+                                        <span class="categories__checkbox-indicator"></span>
+                                    Highest(Current) Bid Price</label>
+                                </li>
+                            </ul>
+                        </div>
+                        <div class="filters__wrapper filters__marketItems"> 
+                            <h2 class="filters__title">Мarket items<span class="filters__show-btn fa fa-chevron-up show-btn show-btn"></span></h2>
+                            <div class="filters-panel-wrapper show-panel"> 
+                                <table class="filters__table">
+                                    <thead>
+                                            <tr class="filters__table-search-row"> 
+                                                <th>
+                                                    <input class="filters__input search" placeholder="#Code" type="search" data-column="0">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Wine" data-column="1">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Year" data-column="2">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Country" data-column="3">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Gain(since last trade)%" data-column="4">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Gain(since intro)%" data-column="5">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Gain(year tp date)" data-column="6">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Offer Price (USD)" data-column="7">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Format" data-column="8">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Date Introduced" data-column="9">
+                                                </th>
+                                                <th>
+                                                     <input class="filters__input search" type="search" placeholder="Authenticator" data-column="10">
+                                                </th>
+                                                <th>
+                                                     <input class="filters__input search" type="search" placeholder="Last Traded Date" data-column="11">
+                                                </th>
+                                                <th>
+                                                    <input class="filters__input search" type="search" placeholder="Last Traded Price" data-column="12">
+                                                </th>
+                                                <th><input class="filters__input search" type="search" placeholder="Highest(Current) Bid Price" data-column="13"></th>                    
+                                        </tr>
+                                        <tr class="filters__table-title-row">
+                                            <th>#Codes<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Wine<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Year<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Country<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Gain (since last trade)%<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Gain (since intro)%<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Gain (year to date)%<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Offer
+                                                <div class="filters__currency-select-wr">
+                                                    <select  class="filters__currency-select">
+                                                        <option value="BTC">BTC</option>
+                                                        <option value="ETH">ETH</option>
+                                                        <option value="EOS">EOS</option>
+                                                        <option value="CWEX">CWEX</option>
+                                                    </select>
+                                                    <i class="fa fa-chevron-down"></i>
+                                                </div>
+                                                <span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span>
+                                            </th>
+                                            <th>Format<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Date Introduced<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Authenticator<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Last Traded Date<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Last Traded<br> Price<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                            <th>Highest(Current) Bid Price<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
+                                        </tr>
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                        <div >
+                            <h2 class="latest-trades__title">Latest trades<span class="latest-trades__show-btn fa fa-chevron-up show-btn "></span></h2>
+                            <div class="show-panel">
+                                <table class="latest-trades__table">
+                                    <thead>
+                                        <tr>
+                                            <th>Wine</th>
+                                            <th>Year</th>
+                                            <th>Price</th>
+                                            <th>Traded Date</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>Château Lafite Rothschild Pauillac</td>
+                                            <td>1989</td>
+                                            <td>1.2343</td>
+                                            <td>2018.01.01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Château Lafite Rothschild Pauillac</td>
+                                            <td>1989</td>
+                                            <td>1.2343</td>
+                                            <td>2018.01.01</td>
+                                        </tr>
+                                        <tr>
+                                            <td>Château Lafite Rothschild Pauillac</td>
+                                            <td>1991</td>
+                                            <td>1.2343</td>
+                                            <td>2018.01.01</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                </div>
+            </div>
+        </section>
+    </main>
+    <div class="modal-сategories">The maximum number of categories is seven.<span class="modal-сategories__close-btn fa fa-times"></span></div>
+    <div class="modal-error">This feature is not available in this demo version<span class="modal-error__close-btn fa fa-times"></span></div>
+    <div class="modal-overlay"></div> 
+
+    <script src="js/jquery.js"></script>
+    <script src="bootstrap/bootstrap.min.js"></script>
+    <script src="js/jquery.csv.min.js"></script>
+    <script src="js/jquery.tablesorter.min.js"></script>
+    <script src="js/chart.js"></script>
+    <script src="js/jquery.sortable.min.js"></script>
+    <script src="js/tablesorter-body.js"></script>
+    <script src="js/widget-filter.js"></script>
+    <script src="js/scripts.js"></script>
+</body>
+</html>
+
