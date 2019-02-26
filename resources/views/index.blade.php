@@ -1,7 +1,6 @@
 @include('layouts.header')
 
 
-
 <main class="main_page">
     <section class="container main-content ">
         <div class="sortable list">

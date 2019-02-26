@@ -90,7 +90,8 @@
         //block not active link
 
         // $("a").not(".site-nav__img-link ,a[href$='.html'] , .site-nav__link--current").each(function(){
-        $("a").not(".site-nav__img-link, a[href='/'], a[href='cave'], .site-nav__link--current").each(function () {
+        // $("a").not(".site-nav__img-link, a[href='/'], a[href='cave'], .site-nav__link--current").each(function () {
+        $("a").not(".site-nav__img-link, .user-nav__link, .site-nav__link").each(function () {
             $(this).on("click", function (evt) {
                 evt.preventDefault();
                 $(".modal-overlay").css("display", "block");
@@ -369,7 +370,7 @@
             dataType: "text",
             success: function (csv) {
                 data = $.csv.toArrays(csv);
-
+                console.log(data)
                 printTable();
                 printTableOwnCave();
                 showContent();
