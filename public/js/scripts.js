@@ -187,7 +187,7 @@
                 html += '<td><span class="filters__table-btn">Bid</span></td>';
                 html += '</tr>\r\n';
                 html += '<tr class="collapse-content"><td colspan="8"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
-                    '<form class="item-details__form" action="" method="">' +
+                    '<form class="item-details__form" id="bidForm" action="changeBit" method="post">' +
                     '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
                     '<span class="item-details__form-current-currency">BTC</span>' +
                     '<input id="submitBid" class="item-details__form-submit" type="submit" value="BID">' +
@@ -427,6 +427,25 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
             }
+        });
+
+        $('.filters__marketItems').on('submit', '#bidForm', function (e) {
+
+            var form = $(this);
+            var url = form.attr('action');
+            var bidData = {};
+            bidData.bidIngex = $(this).closest('tbody').attr('data-ts-original-order');
+            bidData.newBidPrice = $(this).find('.item-details__bid').val();
+            console.log(bidData);
+
+            $.post(url, {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                data: bidData
+            }, function (data) {
+                console.log(data)
+            });
+
+            e.preventDefault(); // avoid to execute the actual submit of the form.
         });
 
         function checkboxChecker() {//check checkbox status to display

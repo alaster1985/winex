@@ -21,3 +21,4 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
 Route::get('getWineListArray', 'CsvController@getWineListArray')->name('getWineListArray');
+Route::post('changeBit', 'CartController@changeBit')->name('changeBit');
