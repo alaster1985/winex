@@ -11,9 +11,13 @@
 |
 */
 
-Route::get('/', 'MainController@index')->name('index');
-Route::get('/cave', 'MainController@cave')->middleware('auth')->name('cave');
 Auth::routes();
+
+Route::get('/', 'MainController@index')->name('index');
+
+Route::get('/cave', 'MainController@cave')->middleware('auth')->name('cave');
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
+
+Route::get('getWineListArray', 'CsvController@getWineListArray')->name('getWineListArray');

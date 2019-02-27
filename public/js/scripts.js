@@ -186,10 +186,19 @@
                 }
                 html += '<td><span class="filters__table-btn">Bid</span></td>';
                 html += '</tr>\r\n';
-                html += '<tr class="collapse-content"><td colspan="8"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div><form class="item-details__form" action="" method=""><input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid"><span class="item-details__form-current-currency">BTC</span><input class="item-details__form-submit" type="submit" value="BID"></form></div></div></td></tr> '
+                html += '<tr class="collapse-content"><td colspan="8"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
+                    '<form class="item-details__form" action="" method="">' +
+                    '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
+                    '<span class="item-details__form-current-currency">BTC</span>' +
+                    '<input id="submitBid" class="item-details__form-submit" type="submit" value="BID">' +
+                    '</form>' +
+                    '</div></div></td></tr> '
                 html += '</tbody>\r\n';
             }
             $('.filters__marketItems .filters__table').append(html);
+            if (!user_id) {
+                $('#submitBid').attr('disabled', true);
+            }
             checkboxChecker();
         };
 
@@ -249,21 +258,29 @@
             });
         };
 
+
+        var randomNumber = function (min, max) {
+            var number = min - 0.5 + Math.random() * (max - min + 1)
+            number = Math.round(number);
+            return number;
+        };
+
         function chartCreating() {//graphs
+            var rnd = Math.random() * (5 - 1) + 1;
             var info = {
                 labels: ["0", "1", "2", "3", "4", "5", "6", "7"],
                 label: "red",
                 datasets: [{
                     label: "Graph",
                     data: [
-                        {x: 0, y: 1},
-                        {x: 1, y: 3},
-                        {x: 2, y: 2},
-                        {x: 3, y: 4},
-                        {x: 4, y: 3},
-                        {x: 5, y: 5},
-                        {x: 6, y: 3},
-                        {x: 7, y: 4}
+                        {x: 0, y: randomNumber(1, 5)},
+                        {x: 1, y: randomNumber(1, 5)},
+                        {x: 2, y: randomNumber(1, 5)},
+                        {x: 3, y: randomNumber(1, 5)},
+                        {x: 4, y: randomNumber(1, 5)},
+                        {x: 5, y: randomNumber(1, 5)},
+                        {x: 6, y: randomNumber(1, 5)},
+                        {x: 7, y: randomNumber(1, 5)}
                     ],
                     backgroundColor: '#dddada',
                     borderColor: '#dddada',
@@ -271,6 +288,7 @@
                     fill: false,
                 }]
             };
+
 
             var chartOptions = {
                 legend: {
@@ -299,7 +317,6 @@
                     }],
                     yAxes: [{
                         afterUpdate: function (scaleInstance) {
-                            // console.dir(scaleInstance);
                         },
                         ticks: {
                             min: 0,
@@ -346,7 +363,13 @@
                     html += '<td>' + data_ownCave[row][item] + '</td>\r\n';
                 }
                 html += '</tr>\r\n';
-                html += '<tr class="collapse-content"><td colspan="7"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div><span class="item-details__btn-shipping">Request shipping</span></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div><form class="item-details__form" action="" method=""><input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid"><span class="item-details__form-current-currency">BTC</span><input class="item-details__form-submit" type="submit" value="SELL OFFER"></form></div></div></td></tr> '
+                html += '<tr class="collapse-content"><td colspan="7"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div><span class="item-details__btn-shipping">Request shipping</span></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
+                    '<form class="item-details__form" action="" method="">' +
+                    '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
+                    '<span class="item-details__form-current-currency">BTC</span>' +
+                    '<input class="item-details__form-submit" type="submit" value="SELL OFFER">' +
+                    '</form>' +
+                    '</div></div></td></tr> '
                 html += '</tbody>\r\n';
             }
             $('.filters__ownCave .filters__table').append(html);
@@ -364,13 +387,34 @@
         });
 
         var data;
+        // $.ajax({
+        //     type: "GET",
+        //     url: "Wine_list_2.csv",
+        //     dataType: "text",
+        //     success: function (csv) {
+        //         data = $.csv.toArrays(csv);
+        //         printTable();
+        //         printTableOwnCave();
+        //         showContent();
+        //         putValues();
+        //         chartCreating();
+        //         tableSorter();
+        //         hideRowOnfocus();
+        //         changeCurrency();
+        //         changeCurrencyTable();
+        //         tableBtnStopPropagation();
+        //         inputBidFocus();
+        //     }
+        // });
+
+        var user_id;
         $.ajax({
             type: "GET",
-            url: "Wine_list_2.csv",
-            dataType: "text",
+            url: "getWineListArray",
+            // dataType: "text",
             success: function (csv) {
-                data = $.csv.toArrays(csv);
-                console.log(data)
+                user_id = csv.pop();
+                data = csv;
                 printTable();
                 printTableOwnCave();
                 showContent();
