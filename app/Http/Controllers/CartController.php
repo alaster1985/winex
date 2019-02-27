@@ -6,9 +6,8 @@ use Illuminate\Http\Request;
 
 class CartController extends Controller
 {
-    public function getWineListArray()
+    public function changeBit(Request $request)
     {
-        $wineListArray = Csv::getWineListFromCsv();
-        return $wineListArray;
+        dd($request);
     }
 }
