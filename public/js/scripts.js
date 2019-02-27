@@ -413,6 +413,7 @@
             url: "getWineListArray",
             // dataType: "text",
             success: function (csv) {
+                console.log(csv)
                 user_id = csv.pop();
                 data = csv;
                 printTable();
