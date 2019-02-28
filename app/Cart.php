@@ -17,7 +17,6 @@ class Cart extends Model
 
     public static function checkGlobalWineListInSession()
     {
-//        return Session::has(Session::getId());
         return !empty(Session::get(Session::getId())[0]); // [0] - global wine list
     }
 
@@ -91,5 +90,48 @@ class Cart extends Model
         Session::push(Session::getId(), $currantCaveWineListArray);
         $wineList = Session::get(Session::getId())[1]; // [1] - cave wine list
         return $wineList;
+    }
+
+    public static function getCaveIndexBidRowByCode($code)
+    {
+        $bidRows = Session::get(Session::getId())[1]; // [1] - cave wine list
+        foreach ($bidRows as $index => $bidRow) {
+            if ($bidRow[0] === $code) { // [0] - #code of bid
+                return $index;
+            }
+        }
+        return false;
+    }
+
+    public static function getCaveBidRowByIndex($index)
+    {
+        $bidRow = Session::get(Session::getId())[1][$index]; // [1] - cave wine list
+        return $bidRow;
+    }
+
+    public static function changeCaveBidDataRowInSessionByIndex($index, $newBidDataRow)
+    {
+        $currentGlobalWineList = self::getGlobalWineListFromSession();
+        $currentCaveWineList = self::getCaveWineListFromSession();
+        $currentCaveWineList[$index] = $newBidDataRow;
+        Session::put(Session::getId(), []);
+        Session::push(Session::getId(), $currentGlobalWineList);
+        Session::push(Session::getId(), $currentCaveWineList);
+        $newCaveWineList = Session::get(Session::getId())[1]; // [1] - cave wine list
+        return $newCaveWineList;
+    }
+
+    public static function unsetBidFromCaveWineListByIndex($index)
+    {
+        $currentGlobalWineList = self::getGlobalWineListFromSession();
+        $currantCaveWineListArray = self::getCaveWineListFromSession();
+        $newGlobalWineBit = $currantCaveWineListArray[$index];
+        array_splice($currantCaveWineListArray, $index, 1);
+        array_unshift($currentGlobalWineList, $newGlobalWineBit);
+        Session::put(Session::getId(), []);
+        Session::push(Session::getId(), $currentGlobalWineList);
+        Session::push(Session::getId(), $currantCaveWineListArray);
+        $newCaveWineList = Session::get(Session::getId())[1]; // [1] - cave wine list
+        return $newCaveWineList;
     }
 }

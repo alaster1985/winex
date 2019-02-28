@@ -73,4 +73,23 @@ class CartController extends Controller
         }
         return $newPrice;
     }
+
+    public function sellBit(Request $request)
+    {
+        $this->bidCode = $request->data['bidCode'];
+        $this->bidIndex = Cart::getCaveIndexBidRowByCode($this->bidCode);
+        $this->currency = $request->data['currency'];
+        $this->newBidPrice = $this->getPriceByCurrency($this->currency, $request->data['newBidPrice']);
+        $bidRow = Cart::getCaveBidRowByIndex($this->bidIndex);
+        if ($this->newBidPrice > $bidRow[13]) {
+            $bidRow[7] = $this->newBidPrice;
+            $newCaveWineList = Cart::changeCaveBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
+        } else {
+            $bidRow[7] = round($this->newBidPrice * 1.05, 2);
+            $bidRow[13] = $this->newBidPrice;
+            $oldCaveWineList = Cart::changeCaveBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
+            $newCaveWineList = Cart::unsetBidFromCaveWineListByIndex($this->bidIndex);
+        }
+        return $newCaveWineList;
+    }
 }

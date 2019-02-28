@@ -23,3 +23,4 @@ Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 Route::get('getGlobalWineListArray', 'CsvController@getGlobalWineListArray')->name('getGlobalWineListArray');
 Route::get('getCaveWineListArray', 'CsvController@getCaveWineListArray')->name('getCaveWineListArray');
 Route::post('changeBit', 'CartController@changeBit')->name('changeBit');
+Route::post('sellBit', 'CartController@sellBit')->name('sellBit');
