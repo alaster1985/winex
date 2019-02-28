@@ -47,16 +47,16 @@ class CartController extends Controller
                 $newPrice = round($price, 2);
                 break;
             case 'BTC':
-                $newPrice = round($price * 0.0002671282, 4);
+                $newPrice = round($price / 0.0002671282, 4);
                 break;
             case 'ETH':
-                $newPrice = round($price * 0.82, 3);
+                $newPrice = round($price / 0.82, 3);
                 break;
             case 'EOS':
-                $newPrice = round($price * 0.4, 2);
+                $newPrice = round($price / 0.4, 2);
                 break;
             case 'CWEX':
-                $newPrice = round($price * 6.26, 2);
+                $newPrice = round($price / 6.26, 2);
                 break;
         }
         return $newPrice;

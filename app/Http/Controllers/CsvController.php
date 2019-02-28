@@ -9,7 +9,7 @@ class CsvController extends Controller
 {
     public function getWineListArray()
     {
-//        Session::forget(Session::getId());
+        Session::forget(Session::getId());
         if (Cart::checkWineListInSession()){
             $wineListArray = Cart::getWineListFromSession();
         } else {
