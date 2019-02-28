@@ -434,18 +434,37 @@
             var form = $(this);
             var url = form.attr('action');
             var bidData = {};
-            bidData.bidIngex = $(this).closest('tbody').attr('data-ts-original-order');
+            // bidData.bidIndex = $(this).closest('tbody').attr('data-ts-original-order');
+            bidData.bidCode = $(this).closest('tbody').children().first().children().first().html();
             bidData.newBidPrice = $(this).find('.item-details__bid').val();
+            bidData.currency = $(this).find('span').text();
+
             console.log(bidData);
 
             $.post(url, {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data: bidData
-            }, function (data) {
-                console.log(data)
+            }, function (csv) {
+                user_id = csv.pop();
+                data = csv;
+
+                $('.filters__marketItems .filters__table').empty();
+                $('.filters__ownCave .filters__table').empty();
+
+                printTable();
+                printTableOwnCave();
+                showContent();
+                putValues();
+                chartCreating();
+                tableSorter();
+                hideRowOnfocus();
+                changeCurrency();
+                changeCurrencyTable();
+                tableBtnStopPropagation();
+                inputBidFocus();
             });
 
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+            e.preventDefault();
         });
 
         function checkboxChecker() {//check checkbox status to display
