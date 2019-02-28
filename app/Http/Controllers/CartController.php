@@ -17,19 +17,31 @@ class CartController extends Controller
     {
 
         $this->bidCode = $request->data['bidCode'];
-        $this->bidIndex = Cart::getIndexBidRowByCode($this->bidCode);
+        $this->bidIndex = Cart::getGlobalIndexBidRowByCode($this->bidCode);
         $this->currency = $request->data['currency'];
         $this->newBidPrice = $this->getPriceByCurrency($this->currency, $request->data['newBidPrice']);
-        $bidRow = Cart::getBidRowByIndex($this->bidIndex);
+        $bidRow = Cart::getGlobalBidRowByIndex($this->bidIndex);
 
         // [13] The Highest(Current) Bid Price [7] Offer Price(USD)
         if ($this->newBidPrice > $bidRow[13] && $this->newBidPrice < $bidRow[7]) {
             $bidRow[13] = $this->newBidPrice;
-        }
-        $bidRow[12] = $this->newBidPrice;               // [12] Last Traded Price
-        $bidRow[11] = Carbon::now()->toDateString();    // [11] Last Traded Date
 
-        $newWineList = Cart::changeBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
+            $bidRow[12] = $this->newBidPrice;                   // [12] Last Traded Price
+            $bidRow[11] = Carbon::now()->toDateString();        // [11] Last Traded Date
+            $newWineList = Cart::changeGlobalBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
+        } elseif ($this->newBidPrice >= $bidRow[7]) {           // [7] Offer Price(USD)
+            $bidRow[7] = round($this->newBidPrice * 1.05, 2);
+
+            $bidRow[13] = $this->newBidPrice;                   // [13] The Highest(Current) Bid Price
+            $bidRow[12] = $this->newBidPrice;                   // [12] Last Traded Price
+            $bidRow[11] = Carbon::now()->toDateString();        // [11] Last Traded Date
+            $oldWineList = Cart::changeGlobalBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
+            $newWineList = Cart::unsetBidFromGlobalWineListByIndex($this->bidIndex);
+        } else {
+            $bidRow[12] = $this->newBidPrice;                   // [12] Last Traded Price
+            $bidRow[11] = Carbon::now()->toDateString();        // [11] Last Traded Date
+            $newWineList = Cart::changeGlobalBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
+        }
         return $newWineList;
     }
 

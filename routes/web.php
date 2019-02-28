@@ -20,5 +20,6 @@ Route::get('/cave', 'MainController@cave')->middleware('auth')->name('cave');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('logout', 'Auth\LoginController@logout')->name('logout');
 
-Route::get('getWineListArray', 'CsvController@getWineListArray')->name('getWineListArray');
+Route::get('getGlobalWineListArray', 'CsvController@getGlobalWineListArray')->name('getGlobalWineListArray');
+Route::get('getCaveWineListArray', 'CsvController@getCaveWineListArray')->name('getCaveWineListArray');
 Route::post('changeBit', 'CartController@changeBit')->name('changeBit');
