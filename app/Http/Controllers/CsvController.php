@@ -3,16 +3,29 @@
 namespace App\Http\Controllers;
 
 use App\Cart;
+use Illuminate\Support\Facades\Session;
 
 class CsvController extends Controller
 {
-    public function getWineListArray()
+    public function getGlobalWineListArray()
     {
-        if (Cart::checkWineListInSession()){
-            $wineListArray = Cart::getWineListFromSession();
+//        Session::forget(Session::getId());
+        if (Cart::checkGlobalWineListInSession()){
+            $wineListArray = Cart::getGlobalWineListFromSession();
         } else {
-            $wineListArray = Cart::addWineListToSession();
+            $wineListArray = Cart::addGlobalWineListToSession();
         }
         return $wineListArray;
+    }
+
+    public function getCaveWineListArray()
+    {
+//        Session::forget(Session::getId());
+        if (Cart::checkCaveWineListInSession()){
+            $caveWineListArray = Cart::getCaveWineListFromSession();
+        } else {
+            $caveWineListArray = [];
+        }
+        return $caveWineListArray;
     }
 }

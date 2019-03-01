@@ -7,7 +7,7 @@ use Illuminate\Support\Facades\Auth;
 
 class Csv extends Model
 {
-    public static function getWineListFromCsv()
+    public static function getGlobalWineListFromCsv()
     {
         $wineListArray = [];
         $csvFile = fopen('Wine_list_2.csv', 'r');

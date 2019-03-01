@@ -189,7 +189,7 @@
                 html += '<tr class="collapse-content"><td colspan="8"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
                     '<form class="item-details__form" id="bidForm" action="changeBit" method="post">' +
                     '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
-                    '<span class="item-details__form-current-currency">BTC</span>' +
+                    '<span class="item-details__form-current-currency">USDC</span>' +
                     '<input id="submitBid" class="item-details__form-submit" type="submit" value="BID">' +
                     '</form>' +
                     '</div></div></td></tr> '
@@ -201,6 +201,14 @@
             }
             checkboxChecker();
         };
+
+        function checkFormForSubmit() {
+            if (!user_id || $('.item-details__bid').val() <= 0) {
+                return true
+            } else {
+                return false
+            }
+        }
 
         function showContent() {//show details
             $(".filters__table").find(".collapse-btn-show").each(function () {
@@ -364,9 +372,9 @@
                 }
                 html += '</tr>\r\n';
                 html += '<tr class="collapse-content"><td colspan="7"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div><span class="item-details__btn-shipping">Request shipping</span></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
-                    '<form class="item-details__form" action="" method="">' +
+                    '<form class="item-details__form" id="sellForm" action="sellBit" method="post">' +
                     '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
-                    '<span class="item-details__form-current-currency">BTC</span>' +
+                    '<span class="item-details__form-current-currency">USDC</span>' +
                     '<input class="item-details__form-submit" type="submit" value="SELL OFFER">' +
                     '</form>' +
                     '</div></div></td></tr> '
@@ -376,13 +384,61 @@
             checkboxChecker();
         };
 
+        $('.filters__ownCave').on('submit', '#sellForm', function (e) {
+
+            var form = $(this);
+            var url = form.attr('action');
+            var bidData = {};
+            // bidData.bidIndex = $(this).closest('tbody').attr('data-ts-original-order');
+            bidData.bidCode = $(this).closest('tbody').children().first().children().first().html();
+            bidData.newBidPrice = $(this).find('.item-details__bid').val();
+            bidData.currency = $(this).find('span').text();
+
+            console.log(bidData);
+
+            $.post(url, {
+                _token: $('meta[name="csrf-token"]').attr('content'),
+                data: bidData
+            }, function (csv) {
+                console.log(csv);
+                // user_id = csv.pop();
+                data_ownCave = csv;
+                var asd = $('.filters__ownCave .filters__table thead');
+                $('.filters__ownCave .filters__table').empty();
+                $('.filters__ownCave .filters__table').append(asd);
+
+                printTableOwnCave();
+                showContent();
+                putValues();
+                chartCreating();
+                tableSorter();
+                hideRowOnfocus();
+                changeCurrency();
+                changeCurrencyTable();
+                tableBtnStopPropagation();
+                inputBidFocus();
+            });
+
+            e.preventDefault();
+        });
+
         var data_ownCave;
+        // $.ajax({
+        //     type: "GET",
+        //     url: "Wine_list-own-cave.csv",
+        //     dataType: "text",
+        //     success: function (csv) {
+        //         data_ownCave = $.csv.toArrays(csv);
+        //         console.log(data_ownCave)
+        //
+        //     }
+        // });
+
         $.ajax({
             type: "GET",
-            url: "Wine_list-own-cave.csv",
-            dataType: "text",
-            success: function (csv) {
-                data_ownCave = $.csv.toArrays(csv);
+            url: "getCaveWineListArray",
+            success: function (csvv) {
+                data_ownCave = csvv;
             }
         });
 
@@ -410,8 +466,7 @@
         var user_id;
         $.ajax({
             type: "GET",
-            url: "getWineListArray",
-            // dataType: "text",
+            url: "getGlobalWineListArray",
             success: function (csv) {
                 user_id = csv.pop();
                 data = csv;
@@ -434,18 +489,38 @@
             var form = $(this);
             var url = form.attr('action');
             var bidData = {};
-            bidData.bidIngex = $(this).closest('tbody').attr('data-ts-original-order');
+            // bidData.bidIndex = $(this).closest('tbody').attr('data-ts-original-order');
+            bidData.bidCode = $(this).closest('tbody').children().first().children().first().html();
             bidData.newBidPrice = $(this).find('.item-details__bid').val();
+            bidData.currency = $(this).find('span').text();
+
             console.log(bidData);
 
             $.post(url, {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data: bidData
-            }, function (data) {
-                console.log(data)
+            }, function (csv) {
+                console.log(csv);
+                user_id = csv.pop();
+                data = csv;
+                var asd = $('.filters__marketItems .filters__table thead');
+                $('.filters__marketItems .filters__table').empty();
+                $('.filters__marketItems .filters__table').append(asd);
+
+                printTable();
+                printTableOwnCave();
+                showContent();
+                putValues();
+                chartCreating();
+                tableSorter();
+                hideRowOnfocus();
+                changeCurrency();
+                changeCurrencyTable();
+                tableBtnStopPropagation();
+                inputBidFocus();
             });
 
-            e.preventDefault(); // avoid to execute the actual submit of the form.
+            e.preventDefault();
         });
 
         function checkboxChecker() {//check checkbox status to display
