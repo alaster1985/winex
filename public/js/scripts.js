@@ -88,10 +88,7 @@
         };
 
         //block not active link
-
-        // $("a").not(".site-nav__img-link ,a[href$='.html'] , .site-nav__link--current").each(function(){
-        // $("a").not(".site-nav__img-link, a[href='/'], a[href='cave'], .site-nav__link--current").each(function () {
-        $("a").not(".site-nav__img-link, .user-nav__link, .site-nav__link").each(function () {
+        $("a").not(".site-nav__img-link, .user-nav__link, .site-nav__link").each(function () { // TODO: fix two links
             $(this).on("click", function (evt) {
                 evt.preventDefault();
                 $(".modal-overlay").css("display", "block");
@@ -105,6 +102,9 @@
             $(".modal-error").css("display", "none");
             $(".modal-сategories").css("display", "none");
         });
+
+        // TODO: add modal 'The item has been successfully purchased, you can see it in the My Cellar'
+        // TODO: add modal 'The wine item has been successfully sold'
 
         $(".modal-error__close-btn , .modal-сategories__close-btn").click(function () {
             $(".modal-overlay").css("display", "none");
@@ -140,6 +140,14 @@
             });
             $.tablesorter.filter.bindSearch($table, $('.search'));
         };
+
+        function setBalance() {
+            $('.user-nav__funds-amound-cwex').text((user_balance / 0.16).toFixed(2));
+            $('.user-nav__funds-amound-btc').text((user_balance / 3743.52).toFixed(4));
+            $('.user-nav__funds-amound-еos').text((user_balance / 2.5).toFixed(2));
+            $('.user-nav__funds-amound-eth').text((user_balance * 0.82).toFixed(2));
+            $('.user-nav__funds-amound-usdc').text(user_balance.toFixed(2));
+        }
 
         function changeCurrencyTamplate() {//change currency in table
             var theValue = $(this);
@@ -208,7 +216,7 @@
             } else {
                 return false
             }
-        }
+        }  // TODO: add validation!
 
         function showContent() {//show details
             $(".filters__table").find(".collapse-btn-show").each(function () {
@@ -231,7 +239,6 @@
                 var value = $(this).parents("tbody").children(".collapse-btn-show").children("td:nth-child(16)").text();
                 $(this).text(value);
             });
-
 
             $(".filters__table").find(".item-details__grape-value").each(function () {
                 var value = $(this).parents("tbody").parents("tbody").children(".collapse-btn-show").children("td:nth-child(17)").text();
@@ -265,7 +272,6 @@
                 $(this).attr('src', wayValue);
             });
         };
-
 
         var randomNumber = function (min, max) {
             var number = min - 0.5 + Math.random() * (max - min + 1)
@@ -400,8 +406,11 @@
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data: bidData
             }, function (csv) {
-                console.log(csv);
-                // user_id = csv.pop();
+                userData = csv.pop();
+                for (let key in userData) {
+                    user_id = key;
+                    user_balance = userData[user_id];
+                }
                 data_ownCave = csv;
                 var asd = $('.filters__ownCave .filters__table thead');
                 $('.filters__ownCave .filters__table').empty();
@@ -417,6 +426,8 @@
                 changeCurrencyTable();
                 tableBtnStopPropagation();
                 inputBidFocus();
+                setBalance();
+                latestTradest();
             });
 
             e.preventDefault();
@@ -438,7 +449,14 @@
             type: "GET",
             url: "getCaveWineListArray",
             success: function (csvv) {
+                userData = csvv.pop();
+                for (let key in userData) {
+                    user_id = key;
+                    user_balance = userData[user_id];
+                }
                 data_ownCave = csvv;
+                setBalance();
+                latestTradest();
             }
         });
 
@@ -463,12 +481,18 @@
         //     }
         // });
 
+        var userData;
         var user_id;
+        var user_balance;
         $.ajax({
             type: "GET",
             url: "getGlobalWineListArray",
             success: function (csv) {
-                user_id = csv.pop();
+                userData = csv.pop();
+                for (let key in userData) {
+                    user_id = key;
+                    user_balance = userData[user_id];
+                }
                 data = csv;
                 printTable();
                 printTableOwnCave();
@@ -481,6 +505,8 @@
                 changeCurrencyTable();
                 tableBtnStopPropagation();
                 inputBidFocus();
+                setBalance();
+                latestTradest();
             }
         });
 
@@ -489,19 +515,19 @@
             var form = $(this);
             var url = form.attr('action');
             var bidData = {};
-            // bidData.bidIndex = $(this).closest('tbody').attr('data-ts-original-order');
             bidData.bidCode = $(this).closest('tbody').children().first().children().first().html();
             bidData.newBidPrice = $(this).find('.item-details__bid').val();
             bidData.currency = $(this).find('span').text();
-
-            console.log(bidData);
 
             $.post(url, {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data: bidData
             }, function (csv) {
-                console.log(csv);
-                user_id = csv.pop();
+                userData = csv.pop();
+                for (let key in userData) {
+                    user_id = key;
+                    user_balance = userData[user_id];
+                }
                 data = csv;
                 var asd = $('.filters__marketItems .filters__table thead');
                 $('.filters__marketItems .filters__table').empty();
@@ -518,10 +544,16 @@
                 changeCurrencyTable();
                 tableBtnStopPropagation();
                 inputBidFocus();
+                setBalance();
+                latestTradest();
             });
 
             e.preventDefault();
         });
+
+        function latestTradest() {
+            console.log(data)
+        }
 
         function checkboxChecker() {//check checkbox status to display
             var checkboxes = $(".categories__list .categories__input");
@@ -561,7 +593,6 @@
                 });
             });
         };
-
 
         $(".categories__list").find(".categories__input").each(function () {
             $(this).on("change", checkboxChecker);

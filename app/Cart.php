@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Session;
 
 class Cart extends Model
@@ -61,6 +62,14 @@ class Cart extends Model
         $currantCaveWineListArray = self::getCaveWineListFromSession();
         $newCaveWineBit = $currentWineList[$index];
         array_splice($currentWineList, $index, 1);
+
+        $newBalanceInfo = array_pop($currentWineList);
+        $newBalanceInfo[Auth::id()] -= $newCaveWineBit[13]; // [13] The Highest(Current) Bid Price
+        array_push($currentWineList, $newBalanceInfo);
+
+        array_pop($currantCaveWineListArray);
+        array_push($currantCaveWineListArray, $newBalanceInfo);
+
         Session::put(Session::getId(), []);
         Session::push(Session::getId(), $currentWineList);
         Session::push(Session::getId(), $currantCaveWineListArray);
@@ -76,14 +85,14 @@ class Cart extends Model
 
     public static function getCaveWineListFromSession()
     {
-        $wineList = Session::get(Session::getId())[1] ?? []; // [1] - cave wine list
+        $wineList = Session::get(Session::getId())[1] ?? [['1' => 30000]]; // [1] - cave wine list
         return $wineList;
     }
 
     public static function addCaveWineBitToSession($caveWineBit)
     {
         $currantCaveWineListArray = self::getCaveWineListFromSession();
-        array_push($currantCaveWineListArray, $caveWineBit);
+        array_unshift($currantCaveWineListArray, $caveWineBit);
         $currentGlobalWineList = self::getGlobalWineListFromSession();
         Session::put(Session::getId(), []);
         Session::push(Session::getId(), $currentGlobalWineList);
@@ -128,6 +137,14 @@ class Cart extends Model
         $newGlobalWineBit = $currantCaveWineListArray[$index];
         array_splice($currantCaveWineListArray, $index, 1);
         array_unshift($currentGlobalWineList, $newGlobalWineBit);
+
+        $newBalanceInfo = array_pop($currentGlobalWineList);
+        $newBalanceInfo[Auth::id()] += $newGlobalWineBit[13]; // [13] The Highest(Current) Bid Price
+        array_push($currentGlobalWineList, $newBalanceInfo);
+
+        array_pop($currantCaveWineListArray);
+        array_push($currantCaveWineListArray, $newBalanceInfo);
+
         Session::put(Session::getId(), []);
         Session::push(Session::getId(), $currentGlobalWineList);
         Session::push(Session::getId(), $currantCaveWineListArray);
