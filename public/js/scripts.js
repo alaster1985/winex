@@ -427,7 +427,6 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
-                latestTradest();
             });
 
             e.preventDefault();
@@ -456,7 +455,6 @@
                 }
                 data_ownCave = csvv;
                 setBalance();
-                latestTradest();
             }
         });
 
@@ -494,6 +492,7 @@
                     user_balance = userData[user_id];
                 }
                 data = csv;
+                latestTradest(data);
                 printTable();
                 printTableOwnCave();
                 showContent();
@@ -506,7 +505,7 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
-                latestTradest();
+
             }
         });
 
@@ -529,6 +528,7 @@
                     user_balance = userData[user_id];
                 }
                 data = csv;
+                latestTradest(data);
                 var asd = $('.filters__marketItems .filters__table thead');
                 $('.filters__marketItems .filters__table').empty();
                 $('.filters__marketItems .filters__table').append(asd);
@@ -545,14 +545,40 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
-                latestTradest();
+                // latestTradest(data);
             });
 
             e.preventDefault();
         });
 
-        function latestTradest() {
-            console.log(data)
+        function latestTradest(qwe) {
+            let last = [];
+            $.each(qwe, function( index, value ) {
+                last[index] = [];
+                $.each(value, function( ind, val ) {
+                    if (ind === 1 || ind === 2 || ind === 13) {
+                        last[index].push(val)
+                    }
+                    if (ind === 11) {
+                        last[index].push(val);
+                        last[index].push(val.substr(0, 4) + val.substr(5, 2) + val.substr(8, 2));
+                    }
+                });
+            });
+            last.sort(function (l, r) {
+                return r[3] - l[3];
+            });
+            last = last.slice(0,3);
+            $('#lastTrade').empty();
+            $.each(last, function (index, value) {
+
+                $('#lastTrade').append('<tr>' +
+                    '<td>'+value[0]+'</td>' +
+                    '<td>'+value[1]+'</td>' +
+                    '<td>'+value[4]+'</td>' +
+                    '<td>'+value[2]+'</td>' +
+                    '</tr>');
+            })
         }
 
         function checkboxChecker() {//check checkbox status to display
