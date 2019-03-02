@@ -406,6 +406,15 @@
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data: bidData
             }, function (csv) {
+                $.ajax({
+                    type: "GET",
+                    url: "getGlobalWineListArray",
+                    success: function (csv) {
+                        let buf = csv.pop();
+                        data = csv;
+                        latestTradest(data);
+                    }
+                });
                 userData = csv.pop();
                 for (let key in userData) {
                     user_id = key;
@@ -545,7 +554,6 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
-                // latestTradest(data);
             });
 
             e.preventDefault();
