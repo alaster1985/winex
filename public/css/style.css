@@ -131,7 +131,9 @@ select {
   z-index: 1;
 }
 .modal-error,
-.modal-сategories {
+.modal-сategories,
+  .modal-successBuy,
+  .modal-successSell {
   position: relative;
   color: #fff;
   font-size: 20px;
@@ -146,8 +148,14 @@ select {
   background-color: #3e3e3e;
   border: 2px solid #761342;
 }
+  .modal-successBuy,
+  .modal-successSell {
+  border: 2px solid #087622;
+}
 .modal-error__close-btn,
-.modal-сategories__close-btn {
+.modal-сategories__close-btn,
+  .modal-successBuy__close-btn,
+  .modal-successSell__close-btn {
   cursor: pointer;
   height: 30px;
   width: 30px;
@@ -161,10 +169,18 @@ select {
   display: inline-block;
   line-height: 30px;
 }
+  .modal-successBuy__close-btn,
+  .modal-successSell__close-btn {
+  background-color: #087622;
+}
 .modal-error__close-btn:hover,
 .modal-сategories__close-btn:hover,
 .modal-error__close-btn:focus,
-.modal-сategories__close-btn:focus {
+.modal-сategories__close-btn:focus,
+  .modal-successBuy__close-btn:hover,
+  .modal-successSell__close-btn:hover,
+  .modal-successBuy__close-btn:focus,
+  .modal-successSell__close-btn:focus {
   opacity: 0.8;
 }
 .cave .site-nav__link--current {
