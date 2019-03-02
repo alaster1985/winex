@@ -151,8 +151,30 @@
             $('.user-nav__funds-amound-cwex').text((user_balance / 0.16).toFixed(2));
             $('.user-nav__funds-amound-btc').text((user_balance / 3743.52).toFixed(4));
             $('.user-nav__funds-amound-еos').text((user_balance / 2.5).toFixed(2));
-            $('.user-nav__funds-amound-eth').text((user_balance * 0.82).toFixed(2));
+            $('.user-nav__funds-amound-eth').text((user_balance * 0.82).toFixed(3));
             $('.user-nav__funds-amound-usdc').text(user_balance.toFixed(2));
+        }
+
+        function getPriceByCurrancy(pr, cur) {
+            let price;
+            switch (cur) {
+                case 'USDC':
+                    price = pr;
+                    break;
+                case 'BTC':
+                    price = (pr / 3743.52).toFixed(4);
+                    break;
+                case 'EOS':
+                    price = (pr / 2.5).toFixed(2);
+                    break;
+                case 'ETH':
+                    price = (pr * 0.82).toFixed(3);
+                    break;
+                case 'CWEX':
+                    price = (pr / 0.16).toFixed(2);
+                    break;
+            }
+            return price;
         }
 
         function changeCurrencyTamplate() {//change currency in table
@@ -406,7 +428,7 @@
             bidData.newBidPrice = $(this).find('.item-details__bid').val();
             bidData.currency = $(this).find('span').text();
 
-            var tp = $(this).closest('tbody').children().first().children().eq(13).html()
+            var tp = $(this).closest('tbody').children().first().children().eq(13).html();
 
 
             $.post(url, {
@@ -444,9 +466,9 @@
                 inputBidFocus();
                 setBalance();
 
-                if (bidData.newBidPrice <= tp) {
+                if (bidData.newBidPrice <= getPriceByCurrancy(tp, bidData.currency)) {
                     console.log('modal-successSell')
-                } else{
+                } else {
                     console.log('nothing')
                 }
             });
@@ -570,9 +592,9 @@
                 inputBidFocus();
                 setBalance();
 
-                if (bidData.newBidPrice <= cp) {
+                if (bidData.newBidPrice >= cp) {
                     console.log('modal-successBuy')
-                } else{
+                } else {
                     console.log('nothing')
                 }
             });
