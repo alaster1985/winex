@@ -37,10 +37,10 @@
                            @else class="site-nav__link" @endif>My Cave</a>
                     </li>
                     <li class="site-nav__item">
-                        <a class="site-nav__link" href="">Trade History</a>
+                        <a class="site-nav__link" name="demo" href="javascript:void(0);">Trade History</a>
                     </li>
                     <li class="site-nav__item">
-                        <a class="site-nav__link" href="">Wallet</a>
+                        <a class="site-nav__link" name="demo" href="javascript:void(0);">Wallet</a>
                     </li>
                 </ul>
                 @if($user)

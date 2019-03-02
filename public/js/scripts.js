@@ -88,12 +88,18 @@
         };
 
         //block not active link
-        $("a").not(".site-nav__img-link, .user-nav__link, .site-nav__link").each(function () { // TODO: fix two links
+        $("a").not(".site-nav__img-link, .user-nav__link, .site-nav__link").each(function () {
             $(this).on("click", function (evt) {
                 evt.preventDefault();
                 $(".modal-overlay").css("display", "block");
                 $(".modal-error").css("display", "block");
             });
+        });
+
+        $('a[name="demo"]').click(function (evt) {
+            evt.preventDefault();
+            $(".modal-overlay").css("display", "block");
+            $(".modal-error").css("display", "block");
         });
 
         //modal - bemo version
@@ -400,7 +406,8 @@
             bidData.newBidPrice = $(this).find('.item-details__bid').val();
             bidData.currency = $(this).find('span').text();
 
-            console.log(bidData);
+            var tp = $(this).closest('tbody').children().first().children().eq(13).html()
+
 
             $.post(url, {
                 _token: $('meta[name="csrf-token"]').attr('content'),
@@ -436,6 +443,12 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
+
+                if (bidData.newBidPrice <= tp) {
+                    console.log('modal-successSell')
+                } else{
+                    console.log('nothing')
+                }
             });
 
             e.preventDefault();
@@ -527,6 +540,8 @@
             bidData.newBidPrice = $(this).find('.item-details__bid').val();
             bidData.currency = $(this).find('span').text();
 
+            var cp = $(this).closest('tbody').find('#current-price-value').text()
+
             $.post(url, {
                 _token: $('meta[name="csrf-token"]').attr('content'),
                 data: bidData
@@ -554,6 +569,12 @@
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
+
+                if (bidData.newBidPrice <= cp) {
+                    console.log('modal-successBuy')
+                } else{
+                    console.log('nothing')
+                }
             });
 
             e.preventDefault();
@@ -561,9 +582,9 @@
 
         function latestTradest(qwe) {
             let last = [];
-            $.each(qwe, function( index, value ) {
+            $.each(qwe, function (index, value) {
                 last[index] = [];
-                $.each(value, function( ind, val ) {
+                $.each(value, function (ind, val) {
                     if (ind === 1 || ind === 2 || ind === 13) {
                         last[index].push(val)
                     }
@@ -576,15 +597,15 @@
             last.sort(function (l, r) {
                 return r[3] - l[3];
             });
-            last = last.slice(0,3);
+            last = last.slice(0, 3);
             $('#lastTrade').empty();
             $.each(last, function (index, value) {
 
                 $('#lastTrade').append('<tr>' +
-                    '<td>'+value[0]+'</td>' +
-                    '<td>'+value[1]+'</td>' +
-                    '<td>'+value[4]+'</td>' +
-                    '<td>'+value[2]+'</td>' +
+                    '<td>' + value[0] + '</td>' +
+                    '<td>' + value[1] + '</td>' +
+                    '<td>' + value[4] + '</td>' +
+                    '<td>' + value[2] + '</td>' +
                     '</tr>');
             })
         }

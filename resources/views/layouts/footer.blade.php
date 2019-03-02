@@ -34,6 +34,8 @@
 
 <div class="modal-сategories">The maximum number of categories is seven.<span class="modal-сategories__close-btn fa fa-times"></span></div>
 <div class="modal-error">This feature is not available in this demo version<span class="modal-error__close-btn fa fa-times"></span></div>
+<div class="modal-successBuy">The item has been successfully purchased, you can see it in the My Cellar<span class="modal-error__close-btn fa fa-times"></span></div>
+<div class="modal-successSell">The wine item has been successfully sold<span class="modal-error__close-btn fa fa-times"></span></div>
 <div class="modal-overlay"></div>
 
 <script src={{asset('js/jquery.js')}}></script>
