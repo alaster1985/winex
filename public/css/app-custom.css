@@ -1,0 +1,41 @@
+html, body {
+    height: 100%;
+}
+body {
+    background-color: #000;
+}
+#app {
+    height: 100%;
+}
+main {
+    min-height: calc(100% - 55px);
+    display: flex;
+    align-items: center;
+}
+.container-custom {
+    margin-top: -55px;
+}
+nav.navbar-laravel {
+    background-color: #000;
+}
+.btn-custom-width {
+    width: 50%;
+}
+.dropdown-item:focus,
+.dropdown-item:hover {
+    color: #16181b;
+    text-decoration: underline;
+    background-color: unset;
+}
+
+
+@media screen and (max-height: 575px) {
+    .container-custom {
+        margin-top: 0;
+    }
+}
+@media screen and (max-width: 575px) {
+    .btn-custom-width {
+        width: 100%;
+    }
+}
