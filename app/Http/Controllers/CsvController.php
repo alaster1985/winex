@@ -24,7 +24,7 @@ class CsvController extends Controller
         if (Cart::checkCaveWineListInSession()){
             $caveWineListArray = Cart::getCaveWineListFromSession();
         } else {
-            $caveWineListArray = [];
+            $caveWineListArray = [['1' => 30000]];
         }
         return $caveWineListArray;
     }

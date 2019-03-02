@@ -61,11 +61,11 @@
         </div>
         <div class="user-nav__funds col-sm-12 ">
             <span class="user-nav__funds-title">Balance</span>
-            <span class="user-nav__funds-amound user-nav__funds-amound-cwex">23000.55</span>
-            <span class="user-nav__funds-amound user-nav__funds-amound-btc">15.5</span>
-            <span class="user-nav__funds-amound user-nav__funds-amound-еos">1700.90</span>
-            <span class="user-nav__funds-amound user-nav__funds-amound-eth">250.70</span>
-            <span class="user-nav__funds-amound user-nav__funds-amound-usdc">30000</span>
+            <span class="user-nav__funds-amound user-nav__funds-amound-cwex"></span>
+            <span class="user-nav__funds-amound user-nav__funds-amound-btc"></span>
+            <span class="user-nav__funds-amound user-nav__funds-amound-еos"></span>
+            <span class="user-nav__funds-amound user-nav__funds-amound-eth"></span>
+            <span class="user-nav__funds-amound user-nav__funds-amound-usdc"></span>
         </div>
     </div>
 </header>

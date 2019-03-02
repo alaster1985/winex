@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Cart;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -81,8 +82,8 @@ class CartController extends Controller
         $this->currency = $request->data['currency'];
         $this->newBidPrice = $this->getPriceByCurrency($this->currency, $request->data['newBidPrice']);
         $bidRow = Cart::getCaveBidRowByIndex($this->bidIndex);
-        if ($this->newBidPrice > $bidRow[13]) {
-            $bidRow[7] = $this->newBidPrice;
+        if ($this->newBidPrice > $bidRow[13]) {         // [13] The Highest(Current) Bid Price
+            $bidRow[7] = $this->newBidPrice;            // [7] Offer Price(USD)
             $newCaveWineList = Cart::changeCaveBidDataRowInSessionByIndex($this->bidIndex, $bidRow);
         } else {
             $bidRow[7] = round($this->newBidPrice * 1.05, 2);

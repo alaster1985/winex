@@ -12,11 +12,11 @@ class Csv extends Model
         $wineListArray = [];
         $csvFile = fopen('Wine_list_2.csv', 'r');
         while (($line = fgetcsv($csvFile)) != false) {
-            array_push($line, false); // for sale marker
+//            array_push($line, false); // for sale marker
             array_push($wineListArray, $line);
         }
         fclose($csvFile);
-        array_push($wineListArray, Auth::id());
+        array_push($wineListArray, [Auth::id() => 30000]); // amount of money in the account, default 30000 USDC
         return $wineListArray;
     }
 }
