@@ -107,15 +107,19 @@
             $(this).css("display", "none");
             $(".modal-error").css("display", "none");
             $(".modal-сategories").css("display", "none");
+            $(".modal-successBuy").css("display", "none");
+            $(".modal-successSell").css("display", "none");
         });
 
         // TODO: add modal 'The item has been successfully purchased, you can see it in the My Cellar'
         // TODO: add modal 'The wine item has been successfully sold'
 
-        $(".modal-error__close-btn , .modal-сategories__close-btn").click(function () {
+        $(".modal-error__close-btn, .modal-сategories__close-btn, .modal-successBuy__close-btn , .modal-successSell__close-btn").click(function () {
             $(".modal-overlay").css("display", "none");
             $(".modal-error").css("display", "none");
-            $(".modal-сategories").css("display", "none")
+            $(".modal-сategories").css("display", "none");
+            $(".modal-successBuy").css("display", "none");
+            $(".modal-successSell").css("display", "none");
         });
 
         //check categories to show
@@ -467,9 +471,8 @@
                 setBalance();
 
                 if (bidData.newBidPrice <= getPriceByCurrancy(tp, bidData.currency)) {
-                    console.log('modal-successSell')
-                } else {
-                    console.log('nothing')
+                    $(".modal-overlay").css("display", "block");
+                    $(".modal-successSell").css("display", "block");
                 }
             });
 
@@ -593,9 +596,8 @@
                 setBalance();
 
                 if (bidData.newBidPrice >= cp) {
-                    console.log('modal-successBuy')
-                } else {
-                    console.log('nothing')
+                    $(".modal-overlay").css("display", "block");
+                    $(".modal-successBuy").css("display", "block");
                 }
             });
 
