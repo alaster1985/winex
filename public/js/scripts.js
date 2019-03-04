@@ -16,7 +16,7 @@
             });
         });
 
-        function changeCurrency() { //changeCurrency table details
+        function changeCurrency() {
             $(".item-details__panel").find("select").each(function () {
                 var priceInBucks = $(this).parents("tbody").children(".collapse-btn-show").children("td:nth-child(8)").text();
                 var BTC = (parseInt(priceInBucks / 3743.52 * 100000)) / 100000;
@@ -87,7 +87,6 @@
             });
         };
 
-        //block not active link
         $("a").not(".site-nav__img-link, .user-nav__link, .site-nav__link").each(function () {
             $(this).on("click", function (evt) {
                 evt.preventDefault();
@@ -102,7 +101,7 @@
             $(".modal-error").css("display", "block");
         });
 
-        //modal - bemo version
+
         $(".modal-overlay").click(function () {
             $(this).css("display", "none");
             $(".modal-error").css("display", "none");
@@ -110,9 +109,6 @@
             $(".modal-successBuy").css("display", "none");
             $(".modal-successSell").css("display", "none");
         });
-
-        // TODO: add modal 'The item has been successfully purchased, you can see it in the My Cellar'
-        // TODO: add modal 'The wine item has been successfully sold'
 
         $(".modal-error__close-btn, .modal-сategories__close-btn, .modal-successBuy__close-btn , .modal-successSell__close-btn").click(function () {
             $(".modal-overlay").css("display", "none");
@@ -122,13 +118,11 @@
             $(".modal-successSell").css("display", "none");
         });
 
-        //check categories to show
         function modalCategoriesShow() {
             $(".modal-overlay").css("display", "block");
             $(".modal-сategories").css("display", "block");
         };
 
-        //dont toggle the info row by clicking the btn
         function tableBtnStopPropagation() {
             $(".filters__table-btn").each(function () {
                 $(this).on("click", function (evt) {
@@ -138,8 +132,11 @@
         };
 
         $('.sortable').sortable();//dragable
+
         function tableSorter() {//sorting by bodies
-            var $table = $('.filters__table').tablesorter({
+            var table = $('.filters__table');
+            if (table.length > 0) {
+                table.tablesorter({
                 cssInfoBlock: "tablesorter-no-sort",
                 widgets: ['sortTbody', 'filter'],
                 widgetOptions: {
@@ -148,7 +145,8 @@
                     filter_saveFilters: true
                 }
             });
-            $.tablesorter.filter.bindSearch($table, $('.search'));
+            $.tablesorter.filter.bindSearch(table, $('.search'));
+            }
         };
 
         function setBalance() {
@@ -181,18 +179,20 @@
             return price;
         }
 
-        function changeCurrencyTamplate() {//change currency in table
+        function changeCurrencyTamplate() {
             var theValue = $(this);
             var priceInBucks = $(this).text();
             var BTC = (priceInBucks / 3743.52).toFixed(4);
             var ETH = (priceInBucks * 0.82).toFixed(3);
             var EOS = priceInBucks / 2.5;
             var CWEX = priceInBucks / 0.16;
-            $(this).text(priceInBucks);
             $(".filters__currency-select").on("change", function () {
                 $('.tablesorter').trigger('update');
                 $(".filters__input").val("");
-                var select = $(".filters__currency-select").val();
+                var select = $(this).val();
+                $(".filters__currency-select").each(function(){
+                    $(this).val(select);
+                });
                 if (select == "USDC") {
                     $(theValue).text(priceInBucks);
                 } else if (select == "BTC") {
@@ -203,10 +203,10 @@
                     $(theValue).text(EOS);
                 } else {
                     $(theValue).text(CWEX);
-                }
-                ;
+                };
             });
         };
+
 
         function changeCurrencyTable() {
             $(".filters__table tbody").find("td:nth-child(8)").each(changeCurrencyTamplate);
@@ -214,7 +214,7 @@
             $(".filters__table tbody").find("td:nth-child(14)").each(changeCurrencyTamplate);
         };
 
-        function printTable() {// init table with  external data
+        function printTable() {
             var html = '';
             for (var row in data) {
                 html += '<tbody>\r\n';
@@ -226,9 +226,9 @@
                 }
                 html += '<td><span class="filters__table-btn">Bid</span></td>';
                 html += '</tr>\r\n';
-                html += '<tr class="collapse-content"><td colspan="8"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
+                html += '<tr class="collapse-content"><td colspan="8"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Asked price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
                     '<form class="item-details__form" id="bidForm" action="changeBit" method="post">' +
-                    '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
+                    '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Offer price">' +
                     '<span class="item-details__form-current-currency">USDC</span>' +
                     '<input id="submitBid" class="item-details__form-submit" type="submit" value="BID">' +
                     '</form>' +
@@ -240,6 +240,37 @@
                 $('#submitBid').attr('disabled', true);
             }
             checkboxChecker();
+            showContent();
+            tableSorter();
+        };
+
+
+        function printTableOwnCave() {
+            var html = '';
+            for (var row in data_ownCave) {
+                html += '<tbody>\r\n';
+                html += '<tr class="collapse-btn-show">\r\n';
+                for (var item in data_ownCave[row]) {
+                    var i = 0;
+                    i++;
+                    html += '<td>' + data_ownCave[row][item] + '</td>\r\n';
+                }
+                html += '</tr>\r\n';
+                html += '<tr class="collapse-content"><td colspan="7"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div><span class="item-details__btn-shipping">Request shipping</span></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Bid Price :</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
+                    '<form class="item-details__form" id="sellForm" action="sellBit" method="post">' +
+                    '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Asked price">' +
+                    '<span class="item-details__form-current-currency">USDC</span>' +
+                    '<input class="item-details__form-submit" type="submit" value="ASK">' +
+                    '</form>' +
+                    '</div></div></td></tr> '
+                html += '</tbody>\r\n';
+            }
+            $('.filters__ownCave .filters__table').append(html);
+            checkboxChecker();
+            showContent();
+            if (html) {
+                tableSorter();
+            }
         };
 
         function checkFormForSubmit() {
@@ -248,9 +279,9 @@
             } else {
                 return false
             }
-        }  // TODO: add validation!
+        }
 
-        function showContent() {//show details
+        function showContent() {
             $(".filters__table").find(".collapse-btn-show").each(function () {
                 $(this).on("click", function () {
                     $(".collapse-btn-show").not($(this)).removeClass("border-top");
@@ -311,7 +342,7 @@
             return number;
         };
 
-        function chartCreating() {//graphs
+        function chartCreating() {
             var rnd = Math.random() * (5 - 1) + 1;
             var info = {
                 labels: ["0", "1", "2", "3", "4", "5", "6", "7"],
@@ -383,9 +414,8 @@
                 }
             };
 
-            var graph = $(".item-details__chart");
-
-            var chartCreate = function () {
+        var graph = $(".item-details__chart");
+        var chartCreate = function () {
                 for (var i = 0; graph.length > i; i++) {
                     var lineChart = new Chart(graph[i], {
                         type: 'line',
@@ -398,32 +428,8 @@
             chartCreate();
         };
 
-        function printTableOwnCave() {//init table in ownCave
-            var html = '';
-            for (var row in data_ownCave) {
-                html += '<tbody>\r\n';
-                html += '<tr class="collapse-btn-show">\r\n';
-                for (var item in data_ownCave[row]) {
-                    var i = 0;
-                    i++;
-                    html += '<td>' + data_ownCave[row][item] + '</td>\r\n';
-                }
-                html += '</tr>\r\n';
-                html += '<tr class="collapse-content"><td colspan="7"><div class="item-details"><div class="item-details__panel clearfix show-panel"><div class="item-details__ls"><div class="item-details__info-title-wrapper"><h3 class="item-details__info-title">Title</h3><p class="item-details__info-description">Descripton</p></div><div class="item-details__extra-info-wrapper"><div class="item-details__extra-img-wrapper"><img class="item-details__extra-info-img" src="" alt="wine"></div><div class="item-details__extra-table-wrapper"><table class="item-details__extra-info"><tr><td>Grape</td><td class="item-details__grape-value">Grape</td></tr><tr><td>Region</td><td class="item-details__region-value">Region</td></tr><tr><td>Format</td><td class="item-details__format-value">Format</td></tr><tr><td>Link</td><td class="item-details__link-value"><a target="_blank" href=" ">Link</a></td></tr><tr><td>Storage</td><td class="item-details__storage-value">Storage</td></tr></table></div><span class="item-details__btn-shipping">Request shipping</span></div></div><div class="item-details__rs"><div class="item-details__rs-current"><span class="item-details__rs-current-price">Offer price:</span><span class="item-details__rs-current-price-value" id="current-price-value">1.25</span><div class="item-details__rs-current-select-wr"><select class="item-details__select-price"><option value="USDC">USDC</option><option value="BTC">BTC</option><option value="ETH">ETH</option><option value="EOS">EOS</option><option value="CWEX">CWEX</option></select><i class="fa fa-chevron-down"></i></div></div><div class="item-details__chart-wrapper"><canvas class="item-details__chart" width="300" height="200"></canvas> </div></div>' +
-                    '<form class="item-details__form" id="sellForm" action="sellBit" method="post">' +
-                    '<input class="item-details__bid" type="number" min="0" step="0.01" value="" placeholder="Bid">' +
-                    '<span class="item-details__form-current-currency">USDC</span>' +
-                    '<input class="item-details__form-submit" type="submit" value="SELL OFFER">' +
-                    '</form>' +
-                    '</div></div></td></tr> '
-                html += '</tbody>\r\n';
-            }
-            $('.filters__ownCave .filters__table').append(html);
-            checkboxChecker();
-        };
 
         $('.filters__ownCave').on('submit', '#sellForm', function (e) {
-
             var form = $(this);
             var url = form.attr('action');
             var bidData = {};
@@ -459,10 +465,8 @@
                 $('.filters__ownCave .filters__table').append(asd);
 
                 printTableOwnCave();
-                showContent();
                 putValues();
                 chartCreating();
-                tableSorter();
                 hideRowOnfocus();
                 changeCurrency();
                 changeCurrencyTable();
@@ -470,7 +474,21 @@
                 inputBidFocus();
                 setBalance();
 
-                if (bidData.newBidPrice <= getPriceByCurrancy(tp, bidData.currency)) {
+
+
+                var a = +bidData.newBidPrice
+                var b = +getPriceByCurrancy(tp, bidData.currency);
+
+                // console.log(typeof b);
+                // console.log(typeof a);
+                // console.log(a + " and "  + b);
+                // console.log(a <= b);
+                // if (a <= b) {
+                //     $(".modal-overlay").css("display", "block");
+                //     $(".modal-successSell").css("display", "block");
+                // }
+
+                if (+bidData.newBidPrice<= +(getPriceByCurrancy(tp, bidData.currency))) {
                     $(".modal-overlay").css("display", "block");
                     $(".modal-successSell").css("display", "block");
                 }
@@ -479,59 +497,40 @@
             e.preventDefault();
         });
 
-        var data_ownCave;
-        // $.ajax({
-        //     type: "GET",
-        //     url: "Wine_list-own-cave.csv",
-        //     dataType: "text",
-        //     success: function (csv) {
-        //         data_ownCave = $.csv.toArrays(csv);
-        //         console.log(data_ownCave)
-        //
-        //     }
-        // });
-
-        $.ajax({
-            type: "GET",
-            url: "getCaveWineListArray",
-            success: function (csvv) {
-                userData = csvv.pop();
-                for (let key in userData) {
-                    user_id = key;
-                    user_balance = userData[user_id];
+        if ($('.filters__ownCave .filters__table').length > 0) {
+            var data_ownCave;
+            $.ajax({
+                type: "GET",
+                url: "getCaveWineListArray",
+                success: function (csvv) {
+                    userData = csvv.pop();
+                    for (let key in userData) {
+                        user_id = key;
+                        user_balance = userData[user_id];
+                    }
+                    data_ownCave = csvv;
+                    setBalance();
+                    latestTradest(data);
+                    printTableOwnCave();
+                    putValues();
+                    chartCreating();
+                    hideRowOnfocus();
+                    changeCurrency();
+                    changeCurrencyTable();
+                    tableBtnStopPropagation();
+                    inputBidFocus();
+                    setBalance();
                 }
-                data_ownCave = csvv;
-                setBalance();
-            }
-        });
+            });
+        };
 
         var data;
-        // $.ajax({
-        //     type: "GET",
-        //     url: "Wine_list_2.csv",
-        //     dataType: "text",
-        //     success: function (csv) {
-        //         data = $.csv.toArrays(csv);
-        //         printTable();
-        //         printTableOwnCave();
-        //         showContent();
-        //         putValues();
-        //         chartCreating();
-        //         tableSorter();
-        //         hideRowOnfocus();
-        //         changeCurrency();
-        //         changeCurrencyTable();
-        //         tableBtnStopPropagation();
-        //         inputBidFocus();
-        //     }
-        // });
-
         var userData;
         var user_id;
         var user_balance;
         $.ajax({
-            type: "GET",
-            url: "getGlobalWineListArray",
+        type: "GET",
+        url: "getGlobalWineListArray",
             success: function (csv) {
                 userData = csv.pop();
                 for (let key in userData) {
@@ -539,22 +538,23 @@
                     user_balance = userData[user_id];
                 }
                 data = csv;
+                setBalance();
                 latestTradest(data);
-                printTable();
-                printTableOwnCave();
-                showContent();
+                if ($('.filters__marketItems .filters__table').length > 0) {
+                    printTable();
+                }
                 putValues();
                 chartCreating();
-                tableSorter();
                 hideRowOnfocus();
                 changeCurrency();
                 changeCurrencyTable();
                 tableBtnStopPropagation();
                 inputBidFocus();
                 setBalance();
-
-            }
+                }
         });
+
+
 
         $('.filters__marketItems').on('submit', '#bidForm', function (e) {
 
@@ -583,11 +583,8 @@
                 $('.filters__marketItems .filters__table').append(asd);
 
                 printTable();
-                printTableOwnCave();
-                showContent();
                 putValues();
                 chartCreating();
-                tableSorter();
                 hideRowOnfocus();
                 changeCurrency();
                 changeCurrencyTable();
@@ -634,7 +631,7 @@
             })
         }
 
-        function checkboxChecker() {//check checkbox status to display
+        function checkboxChecker() {
             var checkboxes = $(".categories__list .categories__input");
             var checked = $("input:checked").length;
             var checkeMax = 7;
@@ -663,7 +660,7 @@
             ;
         };
 
-        function inputBidFocus() {// get  current price on  input bid focused
+        function inputBidFocus() {
             $(".item-details__panel").find(".item-details__bid").each(function () {
                 $(this).on("focus", function () {
 

@@ -313,8 +313,19 @@
                             <th>Authenticator<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
                             <th>Last Traded Date<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
                             <th>Last Traded<br> Price<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
-                            <th>Highest(Current) Bid Price<span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span></th>
-
+                            <th>Highest(Current)<br>Bid Price
+                                <div class="filters__currency-select-wr">
+                                    <select class="filters__currency-select">
+                                        <option value="USDC">USDC</option>
+                                        <option value="BTC">BTC</option>
+                                        <option value="ETH">ETH</option>
+                                        <option value="EOS">EOS</option>
+                                        <option value="CWEX">CWEX</option>
+                                    </select>
+                                    <i class="fa fa-chevron-down"></i>
+                                </div>
+                                <span class="filters_btn"><i class="fa fa-chevron-down"></i><i class="fa fa-chevron-up"></i></span>
+                            </th>
                         </tr>
                         </thead>
                     </table>

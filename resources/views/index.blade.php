@@ -62,7 +62,7 @@
                             <input class="visually-hidden categories__input" type="checkbox" name="categories-offerPUSB"
                                    id="categories-offerPUSB" checked disabled>
                             <span class="categories__checkbox-indicator"></span>
-                            Offer Price(USD)</label>
+                            Asked Price(USD)</label>
                     </li>
                     <li class="categories__item">
                         <label class="categories__item-label">
@@ -212,8 +212,20 @@
                                             class="fa fa-chevron-up"></i></span></th>
                             <th>Last Traded<br> Price<span class="filters_btn"><i class="fa fa-chevron-down"></i><i
                                             class="fa fa-chevron-up"></i></span></th>
-                            <th>Highest(Current) Bid Price<span class="filters_btn"><i class="fa fa-chevron-down"></i><i
-                                            class="fa fa-chevron-up"></i></span></th>
+                            <th>Highest(Current)<br> Bid Price
+                                <div class="filters__currency-select-wr">
+                                    <select class="filters__currency-select">
+                                        <option value="USDC">USDC</option>
+                                        <option value="BTC">BTC</option>
+                                        <option value="ETH">ETH</option>
+                                        <option value="EOS">EOS</option>
+                                        <option value="CWEX">CWEX</option>
+                                    </select>
+                                    <i class="fa fa-chevron-down"></i>
+                                </div>
+                                <span class="filters_btn"><i class="fa fa-chevron-down"></i><i
+                                            class="fa fa-chevron-up"></i></span>
+                            </th>
                             <th></th>
                         </tr>
                         </thead>
